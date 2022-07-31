@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+### 컴포넌트 구조
+1. pages : 보여질 페이지 컴포넌트들
+    - DetailTodo : 상세보기 페이지
+    - NotFound : 잘못된 주소 페이지
+    - TodoList : 실질적인 메인 페이지
+2. components : 재사용 가능하거나 page의 구성요소 컴포넌트들
+    - common : 재사용, 공용 등의 컴포넌트들
+    - form, list, progressbar, todo : page 구성요소 컴포넌트들
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+----------
 
-## Available Scripts
+### 요구사항 해결 방안
+1. create시 input 초기화 : 1주차와 다르게 create시 제어컴포넌트식으로 작성해봤는데 추가하고 그냥 setState('') 사용
+2. input에 값이 있는 상태에서 상세로 이동시 input 초기화 : Form 컴포넌트에서 useEffect로 location 감시하고 로케이션 값 변동되면 setState('') 사용
+3. isDone 여부에 따른 변경 : Todo 컴포넌트에서 삼항연산자 처리
+4. 상세보기 처리 : 버튼 세개보이는거 별로 안 예뻐서 hover하면 보이고 클릭시 이동
+5. 상세페이지 뒤로가기 : navigate(-1) 처리
+6. map 사용 시 key값 index 금지 : nanoid사용
+7. length 사용 id 문제점 고민하기 : 배열 중간 삭제하고 새로 만들고 맨뒤에꺼 지우면 두개 지워짐 (중복값 생김)
 
-In the project directory, you can run:
+----------
 
-### `yarn start`
+### 추가 기능
+1. List : 할일 등록이 많아지면 스크롤바 생성
+2. Form : 제목 빈값 체크, 모달 적용
+3. progressbar : 전체 값중 완료만 찾아서 표시
+4. todo : 텍스트가 길면 ...처리
+5. detailTodo : 텍스트 길면 스크롤바 생성 (하지만 issue 있음), 존재하지않는 Todo ID로 접근하면 잘못된 주소 처리 (6번과 동일한 issue 있음)
+6. NotFound : 잘못된 주소 처리 (하지만 issue 있음)
+7. Loading : 할일 등록, 완료/취소, 삭제 시 로딩화면 추가 (하지만 너무 빨리 렌더링 되어서 안보인다..)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+----------
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 이슈
+1. detailTodo : 텍스트 길어지면 스크롤바는 정상적으로 생기는데 왜 한글은 세로로 생기고 영어는 가로로 생기는가..
+=> width를 지정 안해줘서 그런거 같긴한데 왜 한국어는..? 자세한 건 구글 검색 및 확인 해볼 예정
+2. NotFound : react-persist나 서버 연동을 안해서 rudux의 데이터 유지가 안되는건 안다
+=> 잘못된 주소 정상 작동 체크를 위해 주소창에 잘못된 주소를 기입하면 redux의 데이터가 초기화된다
+=> URL 직접 접근은 redirect식으로 작동하는거 같다
+=> 그럼 react-router-dom은? replace인가? 이부분에 대한 구글 검색 및 확인 해보며 공부예정 
+=> 현재까진 차후에 써볼 Private, Public Route라는 개념을 찾았다 (07/31)
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 정리
+더 많은 이슈가 있을 것이고 좀 더 효율적으로 아름다운 코드를 짤 수 있을 것 같지만
+심화반을 들어야하기에 발견된 두 issue를 제외하고 더이상 손보지 않을 예정 (과제 요구사항은 충족을 다했기 때문) + 머티리얼 재밌다!
